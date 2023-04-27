@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 /**
- * 1.19.3,1.19.4
+ * <= 1.19.2
  */
 public class CustomNbtUtils {
     private static final Logger LOGGER = LogManager.getLogger();
