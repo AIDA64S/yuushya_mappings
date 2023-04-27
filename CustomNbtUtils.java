@@ -1,7 +1,6 @@
 package @package@;
 
-import com.mojang.logging.LogUtils;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -10,7 +9,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.StateHolder;
 import net.minecraft.world.level.block.state.properties.Property;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Iterator;
 import java.util.Optional;
@@ -19,13 +19,13 @@ import java.util.Optional;
  * 1.19.3,1.19.4
  */
 public class CustomNbtUtils {
-    private static final Logger LOGGER = LogUtils.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public static BlockState readBlockState(CompoundTag compoundTag) {
         if (!compoundTag.contains("Name", 8)) {
             return Blocks.AIR.defaultBlockState();
         } else {
-            Block block = BuiltInRegistries.BLOCK.get(new ResourceLocation(compoundTag.getString("Name")));
+            Block block = Registry.BLOCK.get(new ResourceLocation(compoundTag.getString("Name")));
             BlockState blockState = block.defaultBlockState();
             if (compoundTag.contains("Properties", 10)) {
                 CompoundTag compoundTag2 = compoundTag.getCompound("Properties");
